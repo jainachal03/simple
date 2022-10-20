@@ -1,0 +1,16 @@
+syntax = "proto3";
+package gRPC;
+
+option go_package = "./proto";
+
+service Simple{
+    rpc GetSimple(SimpleRequest) returns (SimpleReply) {};
+}
+
+message SimpleRequest{
+    string request = 1;
+}
+
+message SimpleReply{
+    string reply = 1;
+}

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpcserver
+  labels:
+    app: grpcserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpcserver
+  template:
+    metadata:
+      labels:
+        app: grpcserver
+    spec:
+      containers:
+      - name: grpcserver
+        image: grpcserver
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpcserver-service
+spec:
+  selector:
+    app: grpcserver
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+      nodePort: 30009
